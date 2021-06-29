@@ -1,22 +1,30 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Nav from "./ReactComponent/components/nav.jsx";
-import Home from "./ReactComponent/pages/home";
-import Footer from "./ReactComponent/components/footer.jsx";
-import Login from "./ReactComponent/pages/login.jsx";
+import Nav from "./ReactComponent/components/Nav/Nav.jsx";
+import Footer from "./ReactComponent/components/Footer/Footer.jsx"
+;
+import Home from "./ReactComponent/pages/Home/Home.jsx";
+import Login from './ReactComponent/pages/Login/Login.jsx';
+import User from "./ReactComponent/pages/User/User.jsx";
+import Transactions from "./ReactComponent/pages/Transactions/Transactions.jsx";
 
-import "./css/base/reset.scss";
-import "./css/base/base.scss";
-import "./css/base/typography.scss";
+
+import "./App.css";
+
+
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Nav />       
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-          </Switch>        
+        <Nav />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/user" component={User} />
+          <Route path="/transactions" component={Transactions} />
+          <Route component={Home} />
+
+        </Switch>
         <Footer />
       </BrowserRouter>
     </>
@@ -24,3 +32,9 @@ function App() {
 }
 
 export default App;
+
+
+/**
+ * 
+            
+ */

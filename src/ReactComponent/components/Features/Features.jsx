@@ -1,8 +1,10 @@
-import HomeHero from "../components/homeHero";
-import Features from "../components/features";
+import Style from "./Features.module.scss";
+import FeaturesItem from "./FeaturesItem";
 
-const Home = () => {
-  const stickerInfo = [
+const Features = (props) => {
+  console.log(props);
+
+  const featuresInfo = [
     {
       img: "./img/icon-chat.png",
       alt: "chat icon",
@@ -24,21 +26,18 @@ const Home = () => {
   ];
 
   return (
-    <main>
-      <HomeHero />
-      <section class="features">
-        {stickerInfo.map((item, key) => (
-          <Features
-            key={key}
-            img={item.img}
-            alt={item.alt}
-            title={item.title}
-            text={item.text}
-          />
-        ))}
-      </section>
-    </main>
+    <section className={Style.feature}>
+      {featuresInfo.map((item, key) => (
+        <FeaturesItem
+          key={key}
+          img={item.img}
+          alt={item.alt}
+          title={item.title}
+          text={item.text}
+        />
+      ))}
+    </section>
   );
 };
 
-export default Home;
+export default Features;
