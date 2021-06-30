@@ -1,22 +1,34 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 
-const useFetch = (url, method) => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+const useFetch = (url, request) => {
+
+  console.log(request);
+  console.log(request.headers);
 
   useEffect(() => {
+   
     const fetchData = async () => {
-      const response = await fetch(url);
-      const data = await response.json();
+     
+      const response = await fetch(url,{
 
-      console.log(data);
+        method: request.method,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request.body)
+
+      });
+      const res = await response.json();
+
+      console.log(res);
+      
     };
 
     fetchData();
-  }, [url, method]);
+  }, [url,request]);
 
-  return { data, loading };
 };
 
 useFetch.propTypes = {

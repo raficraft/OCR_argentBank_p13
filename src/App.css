@@ -13,6 +13,7 @@ body,#root {
   min-height: 100vh;
 }
 
+
 .main {
   flex: 1;
 }
@@ -33,6 +34,12 @@ body,#root {
   position: absolute !important;
   width: 1px !important;
   white-space: nowrap !important; /* 3 */
+}
+
+
+.textAlert{
+  color : red;
+  font-weight: bold;
 }
 
 

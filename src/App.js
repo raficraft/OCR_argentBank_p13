@@ -5,7 +5,6 @@ import Footer from "./ReactComponent/components/Footer/Footer.jsx"
 import Home from "./ReactComponent/pages/Home/Home.jsx";
 import Login from './ReactComponent/pages/Login/Login.jsx';
 import User from "./ReactComponent/pages/User/User.jsx";
-import Transactions from "./ReactComponent/pages/Transactions/Transactions.jsx";
 
 
 import "./App.css";
@@ -21,9 +20,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/user" component={User} />
-          <Route path="/transactions" component={Transactions} />
           <Route component={Home} />
-
         </Switch>
         <Footer />
       </BrowserRouter>

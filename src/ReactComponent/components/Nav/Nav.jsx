@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import Style from "./Nav.module.scss";
 
 const Nav = () => {
-  console.log(Style);
-
   return (
     <nav className={Style["main-nav"]}>
       <Link to="/" className={Style["main-nav-logo"]}>

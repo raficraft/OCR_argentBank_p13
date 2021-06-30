@@ -2,8 +2,6 @@ import Style from "./Features.module.scss";
 import FeaturesItem from "./FeaturesItem";
 
 const Features = (props) => {
-  console.log(props);
-
   const featuresInfo = [
     {
       img: "./img/icon-chat.png",
