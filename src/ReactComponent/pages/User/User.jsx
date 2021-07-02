@@ -1,7 +1,10 @@
 import Account from "./Account";
 import Style from "./User.module.scss";
+import { connect } from "react-redux";
 
-const User = () => {
+const User = (props) => {
+  console.log("props user", props);
+
   const accountData = [
     {
       account: "Argent Bank Checking (x8349)",
@@ -46,4 +49,14 @@ const User = () => {
   );
 };
 
-export default User;
+
+
+export default connect((state) => {
+  console.log("in login container", state);
+
+  console.log(state);
+
+  return {
+    isAuth: state.isAuth,
+  };
+})(User);

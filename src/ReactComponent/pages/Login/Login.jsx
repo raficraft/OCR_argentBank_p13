@@ -1,19 +1,33 @@
 import Style from "./Login.module.scss";
 import useValidityAuth from "../../../Hooks/useSubForm";
 import { Redirect } from "react-router";
+import { connect } from "react-redux";
+import { useEffect } from "react";
+import { LOGIN_USER } from "../../../Redux/actions";
 
-const Login = () => {
-  const { isAuth, errors, handleInputChange, handleSubmit } = useValidityAuth({
-    email: "",
-    password: "",
-  });
+const Login = (state) => {
+  useEffect(() => {
+    document.title = "login";
+  }, []);
+
+  const { inputs, isAuth, errors, handleInputChange, handleSubmit } =
+    useValidityAuth({
+      email: "",
+      password: "",
+    });
   console.log("errors", errors);
-  console.log("auth", isAuth);
+  console.log("isAuth", isAuth);
 
   if (isAuth) {
-    console.log("yolo");
-
-    return <Redirect to="/user" />;
+    console.log("isAuth avant redirection", isAuth);
+    return (
+      <Redirect
+        to={{
+          pathname: "/user",
+          isAuth: isAuth,
+        }}
+      />
+    );
   }
 
   return (
@@ -26,6 +40,7 @@ const Login = () => {
           {errors === true && (
             <div className="textAlert">Données saisies invalide</div>
           )}
+
           <div className={Style["input-wrapper"]}>
             <label htmlFor="username">Username</label>
             <input
@@ -64,4 +79,17 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+  console.log("in login container", state);
+  return {
+    isAuth: state.isAuth,
+  };
+};
+
+const matchDispatchToProps = (dispatch) => {
+  return {
+    loginUser: () => dispatch({ type: LOGIN_USER }),
+  };
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(Login);
