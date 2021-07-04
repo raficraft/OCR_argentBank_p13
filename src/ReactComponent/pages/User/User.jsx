@@ -1,6 +1,5 @@
 import Account from "./Account";
 import Style from "./User.module.scss";
-import { connect } from "react-redux";
 
 const User = (props) => {
   console.log("props user", props);
@@ -51,12 +50,4 @@ const User = (props) => {
 
 
 
-export default connect((state) => {
-  console.log("in login container", state);
-
-  console.log(state);
-
-  return {
-    isAuth: state.isAuth,
-  };
-})(User);
+export default User;

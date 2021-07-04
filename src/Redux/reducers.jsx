@@ -1,29 +1,46 @@
-import * as actions from "./actions";
+import { initialeState } from "./initialState";
+import {
+  CLICK,
+  FETCH_USER,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_ERROR,
+} from "./actions";
 
-console.log(actions);
+export const userAuth = (state = initialeState, action) => {
+  console.log("action passé au reducer", action);
 
-export const isAuth = (state = false, action) => {
   switch (action.type) {
-    case actions.LOGIN_USER:
-      console.log("yolo");
-      return [...state.isAuth, action.isAuth];
-
-    case actions.LOGOUT_USER:
-      return [...state.isAuth, action.isAuth];
-
-    default: {
-      return state;
+    case CLICK: {
+      return {
+        ...state,
+        click: state.click + 1,
+      };
     }
+
+    case FETCH_USER: {
+      return {
+        ...state,
+        loading: action.loading,
+      };
+    }
+
+    case FETCH_USER_SUCCESS: {
+      return {
+        ...state,
+        user: action.user,
+        loading: action.loading,
+      };
+    }
+    case FETCH_USER_ERROR: {
+      return {
+        ...state,
+        user: action.user,
+        loading: action.loading,
+      };
+    }
+    default:
+      return state;
   }
 };
 
-export const user = (state = {}, action) => {
-  switch (action.type) {
-    case actions.SET_USER:
-      return [...state.user, action.user];
-
-    default: {
-      return state;
-    }
-  }
-};
+export default userAuth;
