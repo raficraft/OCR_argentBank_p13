@@ -1,7 +1,8 @@
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Style from "./Nav.module.scss";
 
-const Nav = () => {
+const Nav = ({ token }) => {
   return (
     <nav className={Style["main-nav"]}>
       <Link to="/" className={Style["main-nav-logo"]}>
@@ -14,13 +15,33 @@ const Nav = () => {
       </Link>
 
       <div>
-        <Link to="./login" className={Style["main-nav-item"]}>
-          <i className="fa fa-user-circle"></i>
-          Sign In
-        </Link>
+        {token ? (
+
+          <>
+          <Link to="./user" className={Style["main-nav-item"]}>
+            <i className="fa fa-user-circle"></i>
+            user
+          </Link>
+          <Link to="./login" className={Style["main-nav-item"]}>
+            <i class="fas fa-sign-out-alt"></i>
+            Log out
+          </Link>
+          </>
+        ) : (
+          <Link to="./login" className={Style["main-nav-item"]}>
+            <i className="fa fa-user-circle"></i>
+            Sign In
+          </Link>
+        )}
       </div>
     </nav>
   );
 };
 
-export default Nav;
+const mapStateToProps = ({ token }) => {
+  return {
+    token,
+  };
+};
+
+export default connect(mapStateToProps)(Nav);

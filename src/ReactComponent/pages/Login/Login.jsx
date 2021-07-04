@@ -1,22 +1,20 @@
 import Style from "./Login.module.scss";
 import { useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import fetchUser from "../../../Redux/middleWare/fetchUser";
+import { fetchToken } from "../../../Redux/middleWare/fetchToken";
+import { Redirect } from "react-router";
+import Loader from "../../components/Loader/Loader";
 
-const Login = ({ click, user, fetchUser }) => {
-  const inputUserName = useRef(null);
-  const inputPassword = useRef(null);
-
+const Login = ({ token, fetchToken, error, loading }) => {
   useEffect(() => {
     document.title = "login";
   }, []);
 
+  const inputUserName = useRef(null);
+  const inputPassword = useRef(null);
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log("sub");
-
-    console.log(inputUserName.current.value);
-    console.log(inputPassword.current.value);
     const request = {
       method: "POST",
       endPoints: "login",
@@ -26,21 +24,34 @@ const Login = ({ click, user, fetchUser }) => {
       },
     };
 
-    console.log(request);
-    fetchUser(request);
+    fetchToken(request);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (token) {
+    return <Redirect to="/user" />;
+  }
 
   return (
     <main className="main bg-dark">
-      {`Nb click: ${click}`}
       <section className={Style["sign-in-content"]}>
         <i className={Style["sign-in-icon"] + " fa fa-user-circle"}></i>
         <h1>Sign In</h1>
 
         <form onSubmit={handleSubmit}>
+          {error && <div className="textAlert">Données saisies invalide</div>}
           <div className={Style["input-wrapper"]}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" name="email" ref={inputUserName} />
+            <label htmlFor="username">Email</label>
+            <input
+              type="text"
+              id="username"
+              name="email"
+              ref={inputUserName}
+              placeholder="Email"
+            />
           </div>
 
           <div className={Style["input-wrapper"]}>
@@ -50,6 +61,7 @@ const Login = ({ click, user, fetchUser }) => {
               id="password"
               name="password"
               ref={inputPassword}
+              placeholder="Password"
             />
           </div>
 
@@ -65,16 +77,17 @@ const Login = ({ click, user, fetchUser }) => {
   );
 };
 
-const mapStateToProps = ({ click, user }) => {
+const mapStateToProps = ({ token, error, loading }) => {
   return {
-    click,
-    user,
+    token,
+    error,
+    loading,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUser: () => dispatch(fetchUser()),
+    fetchToken: (...args) => dispatch(fetchToken(...args)),
   };
 };
 

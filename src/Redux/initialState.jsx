@@ -1,13 +1,12 @@
 export const initialeState = {
-  click: 0,
-  loading: true,
+  token: false,
+  error : false,
+  loading: false,
   user: [
     {
-      isAuth: false,
       firstName: "",
       lastName: "",
       email: "",
-      token: false,
     },
   ],
 };

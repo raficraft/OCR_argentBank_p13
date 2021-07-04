@@ -1,40 +1,32 @@
 import { initialeState } from "./initialState";
 import {
-  CLICK,
-  FETCH_USER,
-  FETCH_USER_SUCCESS,
-  FETCH_USER_ERROR,
+  FETCH_TOKEN_PENDING,
+  FETCH_TOKEN_SUCCESS,
+  FETCH_TOKEN_ERROR,
 } from "./actions";
 
 export const userAuth = (state = initialeState, action) => {
-  console.log("action passé au reducer", action);
-
   switch (action.type) {
-    case CLICK: {
-      return {
-        ...state,
-        click: state.click + 1,
-      };
-    }
+  
 
-    case FETCH_USER: {
+    case FETCH_TOKEN_PENDING: {
       return {
         ...state,
         loading: action.loading,
       };
     }
 
-    case FETCH_USER_SUCCESS: {
+    case FETCH_TOKEN_SUCCESS: {
       return {
         ...state,
-        user: action.user,
+        token: action.token,
         loading: action.loading,
       };
     }
-    case FETCH_USER_ERROR: {
+    case FETCH_TOKEN_ERROR: {
       return {
         ...state,
-        user: action.user,
+        error: action.error,
         loading: action.loading,
       };
     }
