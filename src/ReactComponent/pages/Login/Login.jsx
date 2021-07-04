@@ -32,12 +32,12 @@ const Login = ({ click, user, fetchUser }) => {
 
   return (
     <main className="main bg-dark">
-      {`il mange des bambou : ${click}`}
+      {`Nb click: ${click}`}
       <section className={Style["sign-in-content"]}>
         <i className={Style["sign-in-icon"] + " fa fa-user-circle"}></i>
         <h1>Sign In</h1>
 
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={handleSubmit}>
           <div className={Style["input-wrapper"]}>
             <label htmlFor="username">Username</label>
             <input type="text" id="username" name="email" ref={inputUserName} />
@@ -65,18 +65,16 @@ const Login = ({ click, user, fetchUser }) => {
   );
 };
 
-const mapStateToProps = ({ click, fetchUser }) => {
+const mapStateToProps = ({ click, user }) => {
   return {
     click,
-    fetchUser,
+    user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUser: (request) => {
-      dispatch(fetchUser(request));
-    },
+    fetchUser: () => dispatch(fetchUser()),
   };
 };
 

@@ -3,9 +3,8 @@ export const FETCH_USER = "FETCH_USER";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 export const FETCH_USER_ERROR = "FETCH_USER_ERROR";
 
-export const fetchUserRequest = (user) => ({
+export const fetchUserRequest = () => ({
   type: FETCH_USER,
-  user,
   loading: true,
 });
 export const fetchUserSuccess = (user) => ({
