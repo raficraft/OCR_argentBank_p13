@@ -23,10 +23,6 @@ function App({ click }) {
   );
 }
 
-
 export default App;
 
-/**
- * 
-            
- */
+

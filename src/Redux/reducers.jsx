@@ -1,18 +1,21 @@
-import { initialeState } from "./initialState";
+import { initialStateAuth, initialStateUser } from "./initialState";
 import {
   FETCH_TOKEN_PENDING,
   FETCH_TOKEN_SUCCESS,
   FETCH_TOKEN_ERROR,
+  FETCH_USER_PENDING,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_ERROR,
+  USER_LOGOUT
 } from "./actions";
 
-export const userAuth = (state = initialeState, action) => {
-  switch (action.type) {
-  
+const initialState = {...initialStateAuth,  ...initialStateUser};
 
+export const userAuth = (state = initialState, action) => {
+  switch (action.type) {
     case FETCH_TOKEN_PENDING: {
       return {
         ...state,
-        loading: action.loading,
       };
     }
 
@@ -20,7 +23,6 @@ export const userAuth = (state = initialeState, action) => {
       return {
         ...state,
         token: action.token,
-        loading: action.loading,
       };
     }
     case FETCH_TOKEN_ERROR: {
@@ -30,9 +32,36 @@ export const userAuth = (state = initialeState, action) => {
         loading: action.loading,
       };
     }
+
+    case FETCH_USER_PENDING: {
+      return {
+        ...state,
+        userLoading: action.userLoading,
+      };
+    }
+
+    case FETCH_USER_SUCCESS: {
+      return {
+        ...state,
+        user: action.user,
+        userLoading: action.userLoading,
+      };
+    }
+    case FETCH_USER_ERROR: {
+      return {
+        ...state,
+        userError: action.userError,
+        userLoading: action.userLoading,
+      };
+    }
+    case USER_LOGOUT: {
+      return {
+        ...state,
+        user : {},
+        token : false
+      };
+    }
     default:
       return state;
   }
 };
-
-export default userAuth;

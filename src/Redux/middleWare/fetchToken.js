@@ -8,7 +8,7 @@ export const fetchToken = (request) => {
   return async (dispatch) => {
     dispatch(fetchTokenPending());
 
-    return fetch("http://localhost:3001/api/v1/user/login", {
+    return fetch(`http://localhost:3001/api/v1/user/${request.endPoints}`, {
       method: request.method,
       headers: {
         Accept: "application/json",

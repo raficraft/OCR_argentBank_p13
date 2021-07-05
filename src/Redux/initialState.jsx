@@ -1,12 +1,15 @@
-export const initialeState = {
+export const initialStateAuth = {
   token: false,
   error : false,
-  loading: false,
-  user: [
-    {
-      firstName: "",
-      lastName: "",
-      email: "",
-    },
-  ],
+};
+
+
+
+export const initialStateUser = {
+  user: {
+    firstName : 'goku'
+  },
+  userLoading : false,
+  userError : false,
+  
 };

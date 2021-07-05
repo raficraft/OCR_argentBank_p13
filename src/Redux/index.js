@@ -1,12 +1,13 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import { initialeState } from "./initialState";
-import userAuth from "./reducers";
+import { initialStateAuth, initialStateUser } from "./initialState";
+import {  userAuth,  getUser  } from "./reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
+
+
 
 const store = createStore(
   userAuth,
-  initialeState,
   composeWithDevTools(
     applyMiddleware(thunk)
     // other store enhancers if any

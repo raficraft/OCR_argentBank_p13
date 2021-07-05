@@ -1,8 +1,38 @@
+import { connect } from "react-redux";
 import Account from "./Account";
 import Style from "./User.module.scss";
+import { Redirect } from "react-router";
+import { useEffect } from "react";
+import { fetchUser } from "../../../Redux/middleWare/fetchUser";
+import Loader from "./../../components/Loader/Loader";
 
-const User = (props) => {
-  console.log("props user", props);
+const User = ({ token, user, userLoading, userError, fetchUser }) => {
+  useEffect(() => {
+    if (token) {
+      
+      const request = {
+        method: "POST",
+        endPoints: "profile",
+        token: token,
+      };
+
+      fetchUser(request);
+    }
+  }, [fetchUser]);
+
+  console.log("After useEffect");
+  console.log("Token : ", token);
+  console.log("User : ", user);
+  console.log("Loading : ", userLoading);
+
+  if (userLoading) {
+    return <Loader />;
+  }
+
+  //Protects the entry to the page if the user is not logged in
+  if (!token || userError) {
+    return <Redirect to="/home" />;
+  }
 
   const accountData = [
     {
@@ -29,8 +59,9 @@ const User = (props) => {
       <div className={Style["header"]}>
         <h1>
           Welcome back
+         
           <br />
-          Tony Jarvis!
+          {user.firstName} {user.lastName}
         </h1>
         <button className={Style["edit-button"]}>Edit Name</button>
       </div>
@@ -48,6 +79,26 @@ const User = (props) => {
   );
 };
 
+const mapStateToProps = ({
+  token,
+  
+  user,
+  userLoading,
+  userError,
+}) => {
+  return {
+    token,
 
+    user,
+    userLoading,
+    userError,
+  };
+};
 
-export default User;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchUser: (...args) => dispatch(fetchUser(...args)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);

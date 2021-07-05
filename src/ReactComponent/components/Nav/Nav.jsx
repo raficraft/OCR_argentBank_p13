@@ -16,16 +16,15 @@ const Nav = ({ token }) => {
 
       <div>
         {token ? (
-
           <>
-          <Link to="./user" className={Style["main-nav-item"]}>
-            <i className="fa fa-user-circle"></i>
-            user
-          </Link>
-          <Link to="./login" className={Style["main-nav-item"]}>
-            <i class="fas fa-sign-out-alt"></i>
-            Log out
-          </Link>
+            <Link to="./user" className={Style["main-nav-item"]}>
+              <i className="fa fa-user-circle"></i>
+              user
+            </Link>
+            <Link to="./login" className={Style["main-nav-item"]}>
+              <i className="fas fa-sign-out-alt"></i>
+              Log out
+            </Link>
           </>
         ) : (
           <Link to="./login" className={Style["main-nav-item"]}>

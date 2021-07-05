@@ -5,7 +5,7 @@ import { fetchToken } from "../../../Redux/middleWare/fetchToken";
 import { Redirect } from "react-router";
 import Loader from "../../components/Loader/Loader";
 
-const Login = ({ token, fetchToken, error, loading }) => {
+const Login = ({ token, fetchToken, error, loading, userError }) => {
   useEffect(() => {
     document.title = "login";
   }, []);
@@ -42,7 +42,10 @@ const Login = ({ token, fetchToken, error, loading }) => {
         <h1>Sign In</h1>
 
         <form onSubmit={handleSubmit}>
-          {error && <div className="textAlert">Données saisies invalide</div>}
+          {error ||
+            (userError && (
+              <div className="textAlert">Données saisies invalide</div>
+            ))}
           <div className={Style["input-wrapper"]}>
             <label htmlFor="username">Email</label>
             <input
@@ -77,11 +80,13 @@ const Login = ({ token, fetchToken, error, loading }) => {
   );
 };
 
-const mapStateToProps = ({ token, error, loading }) => {
+const mapStateToProps = ({ token, error, loading, userError }) => {
   return {
     token,
     error,
     loading,
+
+    userError,
   };
 };
 
