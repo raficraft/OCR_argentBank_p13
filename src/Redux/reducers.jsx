@@ -20,9 +20,11 @@ export const userAuth = (state = initialState, action) => {
     }
 
     case FETCH_TOKEN_SUCCESS: {
+      console.log(action);
       return {
         ...state,
-        token: action.token,
+        token: action.token.body.token,
+        remember: action.token.body.remember,
       };
     }
     case FETCH_TOKEN_ERROR: {
@@ -41,10 +43,12 @@ export const userAuth = (state = initialState, action) => {
     }
 
     case FETCH_USER_SUCCESS: {
+      console.log("action for user sucess", action);
       return {
         ...state,
         user: action.user,
         userLoading: action.userLoading,
+        token: action.token,
       };
     }
     case FETCH_USER_ERROR: {
@@ -52,9 +56,15 @@ export const userAuth = (state = initialState, action) => {
         ...state,
         userError: action.userError,
         userLoading: action.userLoading,
+        token: action.token,
       };
     }
     case USER_LOGOUT: {
+      console.log("YOLO IN REDUCER", state);
+      if (localStorage.getItem("token")) {
+        console.log("bordel de merde");
+        localStorage.removeItem("token");
+      }
       return {
         ...state,
         user : {},

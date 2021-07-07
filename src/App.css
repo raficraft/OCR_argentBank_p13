@@ -19,7 +19,7 @@ body,#root {
 }
 
 .bg-dark {
-  background-color: #12002b;
+  background-color: #c0c0c0;
 }
 
 .sr-only {
@@ -44,3 +44,6 @@ body,#root {
 
 
 
+.hidden{
+  display: none;
+}

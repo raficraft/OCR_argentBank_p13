@@ -1,4 +1,15 @@
 
+.main_user{
+  h1 {
+    margin : 0;
+  }
+  .edit_user{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+  }
+}
+
 
 
 .account {
@@ -44,11 +55,21 @@
   color: #fff;
   font-weight: bold;
   padding: 10px;
+  width : auto;
 }
 
 .header {
-  color: #fff;
-  margin-bottom: 2rem;
+  color: rgb(0, 0, 0);
+  margin: 2rem 0 2rem;
+  h1{
+    margin: 1rem 0 0;
+  }
+
+  .shazam_title{
+    margin : 0 0 1rem; 
+  }
+
+ 
 }
 
 .transaction-button {

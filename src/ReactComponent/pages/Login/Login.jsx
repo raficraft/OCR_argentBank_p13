@@ -5,13 +5,14 @@ import { fetchToken } from "../../../Redux/middleWare/fetchToken";
 import { Redirect } from "react-router";
 import Loader from "../../components/Loader/Loader";
 
-const Login = ({ token, fetchToken, error, loading, userError }) => {
+const Login = ({ token, fetchToken, error, loading, userError, remember }) => {
+  const inputUserName = useRef(null);
+  const inputPassword = useRef(null);
+  const inputRemember = useRef(null);
+
   useEffect(() => {
     document.title = "login";
   }, []);
-
-  const inputUserName = useRef(null);
-  const inputPassword = useRef(null);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -22,6 +23,7 @@ const Login = ({ token, fetchToken, error, loading, userError }) => {
         email: inputUserName.current.value,
         password: inputPassword.current.value,
       },
+      remember: inputRemember.current.checked,
     };
 
     fetchToken(request);
@@ -32,6 +34,12 @@ const Login = ({ token, fetchToken, error, loading, userError }) => {
   }
 
   if (token) {
+    console.log(remember);
+    if (remember) {
+      console.log("on stock dans le local storage", token);
+      console.log("on stock dans le local storage", JSON.stringify(token));
+      localStorage.setItem("token", token);
+    }
     return <Redirect to="/user" />;
   }
 
@@ -42,10 +50,7 @@ const Login = ({ token, fetchToken, error, loading, userError }) => {
         <h1>Sign In</h1>
 
         <form onSubmit={handleSubmit}>
-          {error ||
-            (userError && (
-              <div className="textAlert">Données saisies invalide</div>
-            ))}
+          {error && <div className="textAlert">Données saisies invalide</div>}
           <div className={Style["input-wrapper"]}>
             <label htmlFor="username">Email</label>
             <input
@@ -69,7 +74,7 @@ const Login = ({ token, fetchToken, error, loading, userError }) => {
           </div>
 
           <div className={Style["input-remember"]}>
-            <input type="checkbox" id="remember-me" />
+            <input type="checkbox" id="remember-me" ref={inputRemember} />
             <label htmlFor="remember-me">Remember me</label>
           </div>
 
@@ -80,12 +85,12 @@ const Login = ({ token, fetchToken, error, loading, userError }) => {
   );
 };
 
-const mapStateToProps = ({ token, error, loading, userError }) => {
+const mapStateToProps = ({ token, error, loading, userError, remember }) => {
   return {
     token,
     error,
     loading,
-
+    remember,
     userError,
   };
 };

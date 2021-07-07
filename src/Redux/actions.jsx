@@ -11,6 +11,7 @@ export const fetchTokenSuccess = (token) =>  {
    return {
      type: FETCH_TOKEN_SUCCESS,
      token,
+     remember: token.body.remember,
    };
 ;
 };
@@ -35,16 +36,22 @@ export const fetchUserSuccess = (user) => {
     type: FETCH_USER_SUCCESS,
     user: user.body,
     userLoading: false,
+    token: user.token,
   };
 };
 export const fetchUserError = (userError) => ({
   type: FETCH_USER_ERROR,
   userError,
   userLoading: false,
-});
-
-export const userLogout = (userError) => ({
-  type: FETCH_USER_ERROR,
-  user: {},
   token: false,
 });
+
+export const userLogout = () => {
+  console.log('yolo');
+ 
+  return  {
+      type: USER_LOGOUT,
+      user: {},
+      token: false,
+  };;
+};

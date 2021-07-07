@@ -5,6 +5,7 @@ import {
 } from "../actions";
 
 export const fetchToken = (request) => {
+  console.log(request);
   return async (dispatch) => {
     dispatch(fetchTokenPending());
 
@@ -24,7 +25,9 @@ export const fetchToken = (request) => {
         return response.json();
       })
       .then((user) => {
-        dispatch(fetchTokenSuccess(user.body.token));
+        console.log(user);
+        user.body.remember = request.remember;
+        dispatch(fetchTokenSuccess(user));
       })
       .catch((error) => {
         console.log(error);

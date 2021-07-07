@@ -1,15 +1,20 @@
+//dependency
+import { Route, Link, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import Account from "./Account";
-import Style from "./User.module.scss";
 import { Redirect } from "react-router";
 import { useEffect } from "react";
 import { fetchUser } from "../../../Redux/middleWare/fetchUser";
+//Component
+import Account from "./Account";
 import Loader from "./../../components/Loader/Loader";
+import EditUser from "./../../components/EditUser/EditUser";
+import Style from "./User.module.scss";
+import { useRef } from "react";
 
-const User = ({ token, user, userLoading, userError, fetchUser }) => {
+const User = ({ match, token, user, userLoading, userError, fetchUser }) => {
+  console.log(match);
   useEffect(() => {
     if (token) {
-      
       const request = {
         method: "POST",
         endPoints: "profile",
@@ -18,12 +23,15 @@ const User = ({ token, user, userLoading, userError, fetchUser }) => {
 
       fetchUser(request);
     }
-  }, [fetchUser]);
+  }, [token, fetchUser]);
 
-  console.log("After useEffect");
-  console.log("Token : ", token);
-  console.log("User : ", user);
-  console.log("Loading : ", userLoading);
+  const nestedLink = useRef();
+
+  const shazam = () => {
+    console.log(nestedLink.current.classList);
+    nestedLink.current.classList.add("hidden");
+    console.log(nestedLink.current.classList);
+  };
 
   if (userLoading) {
     return <Loader />;
@@ -55,17 +63,42 @@ const User = ({ token, user, userLoading, userError, fetchUser }) => {
   ];
 
   return (
-    <main className="main bg-dark">
+    <main className={`${Style.main_user} main bg-dark`}>
       <div className={Style["header"]}>
-        <h1>
-          Welcome back
-         
-          <br />
-          {user.firstName} {user.lastName}
-        </h1>
-        <button className={Style["edit-button"]}>Edit Name</button>
+        <h1>Welcome back</h1>
+
+        <div
+          className={`${Style.edit_user} shazam_content`}
+          ref={nestedLink}
+        >
+          <h1 className={Style.shazam_title}>
+            {user.firstName} {user.lastName}
+          </h1>
+          {/*Nested Route*/}
+          <Link
+            to={`${match.url}/edit`}
+            className={Style["edit-button"]}
+            onClick={shazam}
+          >
+            Edit Name
+          </Link>
+        </div>
       </div>
       <h2 className="sr-only">Accounts</h2>
+
+      <Switch>
+        <Route
+          path={`${match.url}/edit`}
+          render={(props) => (
+            <EditUser
+              {...props}
+              firstName={user.firstName}
+              lastName={user.lastName}
+              callOrigin={nestedLink}
+            />
+          )}
+        ></Route>
+      </Switch>
 
       {accountData.map((val, key) => (
         <Account
@@ -79,16 +112,9 @@ const User = ({ token, user, userLoading, userError, fetchUser }) => {
   );
 };
 
-const mapStateToProps = ({
-  token,
-  
-  user,
-  userLoading,
-  userError,
-}) => {
+const mapStateToProps = ({ token, user, userLoading, userError }) => {
   return {
     token,
-
     user,
     userLoading,
     userError,
@@ -101,4 +127,14 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+
+
+
+
+
+
 export default connect(mapStateToProps, mapDispatchToProps)(User);
+
+
+
+

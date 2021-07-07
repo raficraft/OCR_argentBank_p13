@@ -1,6 +1,7 @@
 import { fetchUserPending, fetchUserSuccess, fetchUserError } from "../actions";
 
 export const fetchUser = (request) => {
+  console.log(request);
   return async (dispatch) => {
     dispatch(fetchUserPending());
 
@@ -18,7 +19,7 @@ export const fetchUser = (request) => {
         return response.json();
       })
       .then((user) => {
-        console.log(user);
+        user.token = request.token;
 
         dispatch(fetchUserSuccess(user));
       })

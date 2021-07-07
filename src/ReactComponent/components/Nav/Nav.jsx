@@ -1,8 +1,11 @@
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { USER_LOGOUT } from "../../../Redux/actions";
 import Style from "./Nav.module.scss";
 
-const Nav = ({ token }) => {
+const Nav = ({ token, userLogout }) => {
+  console.log("token dans la nav : ", token);
+
   return (
     <nav className={Style["main-nav"]}>
       <Link to="/" className={Style["main-nav-logo"]}>
@@ -21,10 +24,12 @@ const Nav = ({ token }) => {
               <i className="fa fa-user-circle"></i>
               user
             </Link>
-            <Link to="./login" className={Style["main-nav-item"]}>
+            <button
+              className={Style["main-nav-item"]}
+              onClick={()   => userLogout()} >
               <i className="fas fa-sign-out-alt"></i>
               Log out
-            </Link>
+            </button>
           </>
         ) : (
           <Link to="./login" className={Style["main-nav-item"]}>
@@ -43,4 +48,10 @@ const mapStateToProps = ({ token }) => {
   };
 };
 
-export default connect(mapStateToProps)(Nav);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userLogout: () => dispatch({ type: USER_LOGOUT }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);

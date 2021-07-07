@@ -1,6 +1,7 @@
 export const initialStateAuth = {
   token: false,
-  error : false,
+  error: false,
+  remember: false,
 };
 
 

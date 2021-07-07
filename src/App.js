@@ -7,8 +7,29 @@ import Login from "./ReactComponent/pages/Login/Login.jsx";
 import User from "./ReactComponent/pages/User/User.jsx";
 
 import "./App.css";
+import { connect } from "react-redux";
+import { fetchUser } from "./Redux/middleWare/fetchUser.jsx";
+import { useEffect } from "react";
 
-function App({ click }) {
+function App({ token, fetchUser }) {
+  console.log(localStorage.getItem("token"));
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      console.log("on se connecte authomatiquement blibalabliu lol");
+      const request = {
+        method: "POST",
+        endPoints: "profile",
+        token: localStorage.getItem("token"),
+      };
+
+
+      //middleWare autoLog ?????
+
+      fetchUser(request);
+    }
+  }, [token, fetchUser]);
+
   return (
     <>
       <Nav />
@@ -23,6 +44,18 @@ function App({ click }) {
   );
 }
 
-export default App;
+const mapStateToProps = ({ token }) => {
+  return {
+    token,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchUser: (...args) => dispatch(fetchUser(...args)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 

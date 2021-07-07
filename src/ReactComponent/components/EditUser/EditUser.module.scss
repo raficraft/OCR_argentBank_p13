@@ -1,0 +1,37 @@
+
+
+.form_edit_user{
+ 
+
+  *{
+    box-sizing: border-box;
+  }
+  
+  background-color: chocolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-bottom : 2rem;
+
+  .input_bloc{    
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  input{
+    height: 2rem;
+    padding-left : 1rem;
+    margin : 1rem 0.5rem;
+  }
+  button{
+    border : 1px solid blue;
+    padding : 0.5rem 2rem;
+    color: blue;
+    font-size: bold;
+    margin : 0 0.5rem;
+  }
+}
