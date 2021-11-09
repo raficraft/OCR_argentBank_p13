@@ -6,13 +6,19 @@ import {
   FETCH_USER_PENDING,
   FETCH_USER_SUCCESS,
   FETCH_USER_ERROR,
-  USER_LOGOUT
+  USER_LOGOUT,
+  USER_EDIT_PENDING,
+  USER_EDIT_SUCESS,
+  USER_EDIT_ERROR,
 } from "./actions";
 
 const initialState = {...initialStateAuth,  ...initialStateUser};
 
 export const userAuth = (state = initialState, action) => {
   switch (action.type) {
+
+
+    //GET TOKEN
     case FETCH_TOKEN_PENDING: {
       return {
         ...state,
@@ -35,6 +41,8 @@ export const userAuth = (state = initialState, action) => {
       };
     }
 
+
+    //GET USER
     case FETCH_USER_PENDING: {
       return {
         ...state,
@@ -59,6 +67,10 @@ export const userAuth = (state = initialState, action) => {
         token: action.token,
       };
     }
+
+
+    //LOGOUT
+
     case USER_LOGOUT: {
       console.log("YOLO IN REDUCER", state);
       if (localStorage.getItem("token")) {
@@ -67,8 +79,40 @@ export const userAuth = (state = initialState, action) => {
       }
       return {
         ...state,
-        user : {},
-        token : false
+        user: {},
+        token: false,
+      };
+    }
+
+
+    //USER EDIT
+
+    case USER_EDIT_PENDING: {
+      console.log("YOLO IN REDUCER USER EDIT PENDING", state);
+
+      return {
+        ...state,
+        userLoading: action.userLoading,
+      };
+    }
+  
+    case USER_EDIT_SUCESS: {
+      console.log("YOLO IN REDUCER USER EDIT SUCCESS", state);
+
+      return {
+        ...state,
+        user: action.user,
+        userLoading: action.userLoading,
+      };
+    }
+
+    case USER_EDIT_ERROR: {
+      console.log("YOLO IN REDUCER USER EDIT ERROR", state);
+
+      return {
+        ...state,
+        userError: action.userError,
+        userLoading: action.userLoading,
       };
     }
     default:

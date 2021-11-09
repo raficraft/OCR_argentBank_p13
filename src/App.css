@@ -41,9 +41,3 @@ body,#root {
   color : red;
   font-weight: bold;
 }
-
-
-
-.hidden{
-  display: none;
-}

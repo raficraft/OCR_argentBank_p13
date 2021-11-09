@@ -2,17 +2,19 @@
 import { Route, Link, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchUser } from "../../../Redux/middleWare/fetchUser";
 //Component
 import Account from "./Account";
 import Loader from "./../../components/Loader/Loader";
 import EditUser from "./../../components/EditUser/EditUser";
 import Style from "./User.module.scss";
-import { useRef } from "react";
+import { accountData } from "../../../data/data";
 
 const User = ({ match, token, user, userLoading, userError, fetchUser }) => {
-  console.log(match);
+  const [isToggleBtn, setIsToggleBtn] = useState(true);
+  const [isToggle, setIsToggle] = useState(false);
+
   useEffect(() => {
     if (token) {
       const request = {
@@ -25,12 +27,10 @@ const User = ({ match, token, user, userLoading, userError, fetchUser }) => {
     }
   }, [token, fetchUser]);
 
-  const nestedLink = useRef();
-
   const shazam = () => {
-    console.log(nestedLink.current.classList);
-    nestedLink.current.classList.add("hidden");
-    console.log(nestedLink.current.classList);
+    console.log("???????");
+    setIsToggleBtn(!isToggleBtn);
+    setIsToggle(!isToggle);   
   };
 
   if (userLoading) {
@@ -42,34 +42,14 @@ const User = ({ match, token, user, userLoading, userError, fetchUser }) => {
     return <Redirect to="/home" />;
   }
 
-  const accountData = [
-    {
-      account: "Argent Bank Checking (x8349)",
-      balance: "2082.79",
-      message: "Available Balance",
-    },
-
-    {
-      account: "Argent Bank Savings (x6712)",
-      balance: "10.928.42",
-      message: "Available Balance",
-    },
-
-    {
-      account: "Argent Bank Credit Card (x8349)",
-      balance: "184.30",
-      message: "View transactions",
-    },
-  ];
-
   return (
     <main className={`${Style.main_user} main bg-dark`}>
       <div className={Style["header"]}>
         <h1>Welcome back</h1>
 
         <div
-          className={`${Style.edit_user} shazam_content`}
-          ref={nestedLink}
+          className={`${Style.edit_user}`}
+          style={{ display: isToggleBtn ? "flex" : "none" }}
         >
           <h1 className={Style.shazam_title}>
             {user.firstName} {user.lastName}
@@ -78,7 +58,7 @@ const User = ({ match, token, user, userLoading, userError, fetchUser }) => {
           <Link
             to={`${match.url}/edit`}
             className={Style["edit-button"]}
-            onClick={shazam}
+            onClick={() => shazam()}
           >
             Edit Name
           </Link>
@@ -92,9 +72,9 @@ const User = ({ match, token, user, userLoading, userError, fetchUser }) => {
           render={(props) => (
             <EditUser
               {...props}
-              firstName={user.firstName}
-              lastName={user.lastName}
-              callOrigin={nestedLink}
+              token={token}
+              shazam={shazam}
+              isToggle={isToggle}
             />
           )}
         ></Route>
@@ -127,14 +107,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-
-
-
-
-
-
 export default connect(mapStateToProps, mapDispatchToProps)(User);
-
-
-
-

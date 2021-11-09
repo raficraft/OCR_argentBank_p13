@@ -11,8 +11,6 @@ import './index.css';
 
 //Storage auth in loacalStorage
 
-
-
 console.log(store);
 ReactDOM.render(
   <React.StrictMode>

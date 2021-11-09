@@ -59,6 +59,7 @@ const Login = ({ token, fetchToken, error, loading, userError, remember }) => {
               name="email"
               ref={inputUserName}
               placeholder="Email"
+              value="tony@stark.com"
             />
           </div>
 
@@ -70,6 +71,7 @@ const Login = ({ token, fetchToken, error, loading, userError, remember }) => {
               name="password"
               ref={inputPassword}
               placeholder="Password"
+              value="password123"
             />
           </div>
 

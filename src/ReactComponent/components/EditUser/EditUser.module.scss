@@ -7,7 +7,6 @@
     box-sizing: border-box;
   }
   
-  background-color: chocolate;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,6 +31,6 @@
     padding : 0.5rem 2rem;
     color: blue;
     font-size: bold;
-    margin : 0 0.5rem;
+    margin : 0 0.5rem;width : 140px;
   }
 }

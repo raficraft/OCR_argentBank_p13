@@ -10,6 +10,7 @@ export const fetchUser = (request) => {
       headers: {
         Authorization: `Bearer ${request.token}`,
       },
+      
     })
       .then((response) => {
         if (!response.ok) {
@@ -19,7 +20,9 @@ export const fetchUser = (request) => {
         return response.json();
       })
       .then((user) => {
-        user.token = request.token;
+        if (request.token) {
+            user.token = request.token;
+        }
 
         dispatch(fetchUserSuccess(user));
       })

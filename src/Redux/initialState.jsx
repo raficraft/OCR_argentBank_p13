@@ -4,13 +4,12 @@ export const initialStateAuth = {
   remember: false,
 };
 
-
-
 export const initialStateUser = {
   user: {
-    firstName : 'goku'
+    email: "",
+    firstName: "firstName",
+    lastName: "lastName",
   },
-  userLoading : false,
-  userError : false,
-  
+  userLoading: false,
+  userError: false,
 };

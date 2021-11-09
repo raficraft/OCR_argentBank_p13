@@ -12,8 +12,6 @@ import { fetchUser } from "./Redux/middleWare/fetchUser.jsx";
 import { useEffect } from "react";
 
 function App({ token, fetchUser }) {
-  console.log(localStorage.getItem("token"));
-
   useEffect(() => {
     if (localStorage.getItem("token")) {
       console.log("on se connecte authomatiquement blibalabliu lol");
@@ -22,10 +20,6 @@ function App({ token, fetchUser }) {
         endPoints: "profile",
         token: localStorage.getItem("token"),
       };
-
-
-      //middleWare autoLog ?????
-
       fetchUser(request);
     }
   }, [token, fetchUser]);
