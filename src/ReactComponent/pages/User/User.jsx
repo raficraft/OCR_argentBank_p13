@@ -28,9 +28,8 @@ const User = ({ match, token, user, userLoading, userError, fetchUser }) => {
   }, [token, fetchUser]);
 
   const shazam = () => {
-    console.log("???????");
     setIsToggleBtn(!isToggleBtn);
-    setIsToggle(!isToggle);   
+    setIsToggle(!isToggle);
   };
 
   if (userLoading) {
